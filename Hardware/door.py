@@ -1,3 +1,7 @@
+# This file is part of a project using PyQt5 and RPi.GPIO.
+# PyQt5 is licensed under the GPL or a commercial license.
+# RPi.GPIO is licensed under the MIT License.
+
 import sys
 import RPi.GPIO as GPIO
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout
