@@ -1,3 +1,12 @@
+# This file is part of a Flask application that uses the Adafruit_DHT library for reading DHT11 sensor data.
+# Flask is licensed under the BSD License. See: https://github.com/pallets/flask/blob/main/LICENSE
+# Adafruit_DHT is licensed under the MIT License. See: https://github.com/adafruit/Adafruit_Python_DHT/blob/master/LICENSE
+
+# This application runs a web server that provides temperature and humidity data from a DHT11 sensor.
+# Ensure to follow the respective licenses of the libraries used in this application.
+
+# Created by [hoyoyongyong].
+
 from flask import Flask, jsonify
 import Adafruit_DHT
 
