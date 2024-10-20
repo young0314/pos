@@ -1,3 +1,7 @@
+# This file is part of a project using PyQt, Adafruit_DHT, and RPi.GPIO.
+# PyQt is licensed under the GPL or a commercial license.
+# Adafruit_DHT and RPi.GPIO are licensed under the MIT License.
+
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QApplication
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QTimer, Qt
