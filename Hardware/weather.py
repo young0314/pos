@@ -1,3 +1,16 @@
+# This file is part of a project using PyQt5 for a weather application.
+# 
+# PyQt5 is licensed under the GPL or a commercial license. See:
+# https://www.gnu.org/licenses/gpl-3.0.html
+# 
+# This code uses the OpenWeatherMap API. Ensure to follow their terms of use:
+# https://openweathermap.org/terms
+# 
+# All images used in this application are stored locally and should be 
+# attributed to their respective authors if necessary.
+#
+# This code is created by [hoyoyongyong].
+
 import sys
 import os
 import requests
