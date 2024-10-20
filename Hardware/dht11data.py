@@ -1,3 +1,8 @@
+# This file is part of a project using PyQt5, Adafruit_DHT, requests, and threading.
+# PyQt5 is licensed under the GPL or a commercial license.
+# Adafruit_DHT is licensed under the MIT License.
+# requests is licensed under the Apache License 2.0.
+
 import sys
 import requests
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QApplication
