@@ -1,3 +1,9 @@
+# This file is part of a project using PyQt5 and various sensor modules.
+# PyQt5 is licensed under the GPL or a commercial license.
+# If any of these modules use open-source licenses, their respective licenses must be followed.
+# This project also uses the 'requests' library, which is licensed under the Apache License 2.0.
+# See: http://www.apache.org/licenses/LICENSE-2.0
+
 import sys
 import os
 import requests
