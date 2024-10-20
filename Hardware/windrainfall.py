@@ -1,3 +1,13 @@
+# This file is part of a project using PyQt5 for a Wind and Rainfall application.
+#
+# PyQt5 is licensed under the GPL or a commercial license. See:
+# https://www.gnu.org/licenses/gpl-3.0.html
+#
+# This code uses the OpenWeatherMap API. Ensure to follow their terms of use:
+# https://openweathermap.org/terms
+#
+# This code is created by [hoyoyongyong].
+
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QPixmap
