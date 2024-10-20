@@ -1,3 +1,12 @@
+# This file is part of a Flask application.
+# Flask is licensed under the BSD License.
+# See: https://github.com/pallets/flask/blob/main/LICENSE
+
+# This application uses the following open source libraries:
+# - Flask: BSD License
+#   Copyright (c) 2010 Pallets
+#   See: https://github.com/pallets/flask/blob/main/LICENSE
+
 from flask import Flask, request, send_file, jsonify
 import json
 
