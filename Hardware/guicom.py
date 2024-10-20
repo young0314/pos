@@ -1,3 +1,7 @@
+# This file is part of a project using PyQt5 and various sensor modules.
+# PyQt5 is licensed under the GPL or a commercial license.
+# their respective licenses must be followed.
+
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QStackedWidget
 from PyQt5.QtCore import QTimer
