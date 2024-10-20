@@ -1,0 +1,33 @@
+# LICENSE.txt
+
+# My Project Name
+This project utilizes various libraries and modules, including PyQt5, Flask, and the requests library, among others.
+
+## License Information
+
+### PyQt5
+- License: GPL or commercial license.
+- More Info: https://www.gnu.org/licenses/gpl-3.0.html
+
+### Flask
+- License: BSD License.
+- More Info: https://github.com/pallets/flask/blob/main/LICENSE
+
+### requests
+- License: Apache License 2.0.
+- More Info: http://www.apache.org/licenses/LICENSE-2.0
+
+### OpenWeatherMap API
+- Ensure to follow their terms of use: https://openweathermap.org/terms
+
+## Custom Code
+This code is created by [hoyoyongyong].
+All images used in this application are stored locally and should be attributed to their respective authors if necessary.
+
+## Custom Project Details
+This project includes the following applications:
+- Weather Application using PyQt5
+- Wind and Rainfall Application using PyQt5
+
+## Additional Notes
+If any of these modules use open-source licenses, their respective licenses must be followed.
