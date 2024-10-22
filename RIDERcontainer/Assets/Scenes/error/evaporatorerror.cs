@@ -48,7 +48,7 @@ public class evaporatorerror : MonoBehaviour
 
                 if (objectRenderer.material.HasProperty("_BlinkSpeed"))
                 {
-                    if (errorData.Contains("5"))
+                    if (errorData.Contains("4"))
                     {
                         objectRenderer.material.SetFloat("_BlinkSpeed", 5f); // _BlinkSpeed를 5로 설정
                     }
