@@ -48,7 +48,7 @@ public class cferror : MonoBehaviour
 
                 if (objectRenderer.material.HasProperty("_BlinkSpeed"))
                 {
-                    if (errorData.Contains("3") || errorData.Contains("6") || errorData.Contains("7") || errorData.Contains("8"))
+                    if (errorData.Contains("2") || errorData.Contains("5") || errorData.Contains("6") || errorData.Contains("7"))
                     {
                         objectRenderer.material.SetFloat("_BlinkSpeed", 5f); // _BlinkSpeed를 5로 설정
                     }
