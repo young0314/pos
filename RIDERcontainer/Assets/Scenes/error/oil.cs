@@ -48,7 +48,7 @@ public class oil : MonoBehaviour
 
                 if (objectRenderer.material.HasProperty("_BlinkSpeed"))
                 {
-                    if (errorData.Contains("2"))
+                    if (errorData.Contains("1"))
                     {
                         objectRenderer.material.SetFloat("_BlinkSpeed", 5f); // _BlinkSpeed를 5로 설정
                     }
