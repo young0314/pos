@@ -1,6 +1,6 @@
 # LICENSE.txt
 
-# My Project Name
+# RIDERS
 This project utilizes various libraries and modules, including PyQt5, Flask, and the requests library, among others.
 
 ## License Information
