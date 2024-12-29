@@ -12,11 +12,11 @@
 - 홍서영 : 예지보전, 서버
 - 유성경 : 유니티, 앱
 
-## ✅ 개발 환경
+## ✅⚙️ 개발 환경
 - python3.9
 - java17
 - RaspberryPi4
-- UNITY3.22
+- UNITY2022.3.21f1
 - SpringBoot3.x
 - Flask
 - React
