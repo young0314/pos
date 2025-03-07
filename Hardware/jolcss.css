@@ -1,0 +1,58 @@
+QLabel
+{
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: -1px;
+}
+
+QWidget
+{
+    background-color: #202124;
+}
+
+#imageweather_label
+{
+    text-align: center;
+}
+
+#temperatureweather_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#rainfall_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#wind_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#temperature_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#humidity_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#latitude_label
+{
+    text-align: center;
+    font-size: 70px;
+}
+
+#longitude_label
+{
+    text-align: center;
+    font-size: 70px;
+}
