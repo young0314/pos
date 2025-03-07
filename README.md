@@ -32,7 +32,7 @@
 ![Image](https://github.com/user-attachments/assets/eb93efd5-fa37-4861-a6b7-3b73d9ef639a)
 
 ## 시스템 흐름도
-![Image](https://github.com/user-attachments/assets/03271d2d-b790-4c49-9c0c-bdef4f831354)
+![Image](https://github.com/user-attachments/assets/8a51bec0-788e-4243-bfb3-d18277442df9)
 
 ## 📌 주요 기능
 #### 냉각기 고장을 대비하는 3단계 예지보전
