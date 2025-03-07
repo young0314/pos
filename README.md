@@ -17,7 +17,7 @@
 - java17
 - RaspberryPi4
 - UNITY2022.3.21f1
-- SpringBoot3.x
+- SpringBoot3.3.4
 - Flask
 - React
 - GUI : PyQt, PySide
