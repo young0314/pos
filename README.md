@@ -50,4 +50,4 @@
 - 컨테이너의 컨디션을 확인할 수 있는 앱
 
 ## 시연
-![유니티 시연](https://github.com/user-attachments/assets/1f4e496f-7e95-47df-a257-46ff04b7776b) | ![컨너이너 시연](https://github.com/user-attachments/assets/f5dd1fd0-fa56-4628-8b66-f8b6116bf18c) ---|---|
+![유니티 시연](https://github.com/user-attachments/assets/1f4e496f-7e95-47df-a257-46ff04b7776b)|![컨너이너 시연](https://github.com/user-attachments/assets/f5dd1fd0-fa56-4628-8b66-f8b6116bf18c)---|---|
