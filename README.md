@@ -22,7 +22,7 @@
 - Flask
 - React
 - GUI : PyQt, PySide
-- Database : MySQL
+- Database : MySQL 8.0.30
 
 ## 📃 기획 배경
 - WTO에서 2024년부터 수출 물류비 지원을 중단함에 따라 운송비용의 부담이 증가하며 항공운송 이용에 대한 부담 증가
