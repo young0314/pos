@@ -29,7 +29,7 @@
 - 예지보전 기술과 스마트컨테이너를 결합하여 냉각기 고장을 운송 전에 예방
 
 ## ERD
-![Image](https://github.com/user-attachments/assets/a2038024-e994-46df-a72b-455e28a9de29)
+![Image](https://github.com/user-attachments/assets/d895c641-26f2-4880-87b0-ae545fb22415)
 
 ## 시스템 흐름도
 ![Image](https://github.com/user-attachments/assets/8a51bec0-788e-4243-bfb3-d18277442df9)
