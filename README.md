@@ -51,11 +51,6 @@
 
 ## 시연
 ### 컨테이너 프로토타입
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f5dd1fd0-fa56-4628-8b66-f8b6116bf18c" alt="컨테이너"/>
-</p>
-
+![컨너이너 시연](https://github.com/user-attachments/assets/f38e5b0b-071e-4a73-b015-b1a11fa7e2d0)
 ### 냉각기 시각화
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/1f4e496f-7e95-47df-a257-46ff04b7776b" alt="유니티"/>
-</p>
+![유니티 시연](https://github.com/user-attachments/assets/00bf2f78-1543-4856-ba98-e4c93bb3975b)
