@@ -49,8 +49,9 @@
 #### 실시간 모니터링 앱
 - 컨테이너의 컨디션을 확인할 수 있는 앱
 
+
 ## 시연
 ### 컨테이너 프로토타입
-![컨너이너 시연](https://github.com/user-attachments/assets/f38e5b0b-071e-4a73-b015-b1a11fa7e2d0)
+![컨너이너 시연(위치 제거)](https://github.com/user-attachments/assets/980a70e1-fd38-4009-8780-bc8caab908fb)
 ### 냉각기 시각화
 ![유니티 시연](https://github.com/user-attachments/assets/00bf2f78-1543-4856-ba98-e4c93bb3975b)
