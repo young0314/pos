@@ -85,7 +85,7 @@ class dht11dataApp(QWidget):
                     error_type = None
                     lifespan = None
                     try:
-                          lifespan = prediction_text.split('Life:')[1].split(',')[0].strip()
+                          lifespan = prediction_text.split(',')[0].strip()
                           type_part = prediction_text.split('Type:')[1].strip()
                           error_type = int(float(type_part.split(',')[0].strip()))
 
