@@ -156,14 +156,14 @@ public class UserController {
         if (adminId == null) {
             System.out.println("adminId없음");
             System.out.println(adminId);
-            response.put("status", "failure");
+            response.put("status", "false");
             response.put("message", "Authentication required");
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
 
         // 입력 값 유효성 검사
         if (newPassword == null || newPassword.isBlank()) {
-            response.put("status", "failure");
+            response.put("status", "false");
             response.put("message", "New password is missing");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
@@ -185,28 +185,9 @@ public class UserController {
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
 
-            response.put("status", "failure");
+            response.put("status", "false");
             response.put("message", "사용자를 찾을 수 없습니다.");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("/myinfo")
-    public ResponseEntity<Map<String, String>> getAdminId(HttpSession session) {
-        // 세션에서 adminId 가져오기
-        String adminId = (String) session.getAttribute("adminId");
-
-        // adminId가 없으면 UNAUTHORIZED 응답 반환
-        if (adminId == null) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        // adminId를 JSON 형태로 반환
-        Map<String, String> response = new HashMap<>();
-        response.put("adminId", adminId);
-
-
-        return ResponseEntity.ok(response);
-    }
-
 }
