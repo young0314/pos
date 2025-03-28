@@ -3,7 +3,6 @@ package com.example.pos_app.Service;
 import com.example.pos_app.DTO.UserDTO;
 import com.example.pos_app.Model.User;
 import com.example.pos_app.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +11,14 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder; // BCryptPasswordEncoder 사용
 
-
-
-    @Autowired
-    private PasswordEncoder passwordEncoder; // BCryptPasswordEncoder 사용
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder){
+        this.userRepository=userRepository;
+        this.passwordEncoder=passwordEncoder;
+    }
 
     // 회원가입 시 idNumber 중복 확인 로직 추가
     public User registerAdmin(UserDTO userDto) {
@@ -77,11 +77,5 @@ public class UserService {
         System.out.println("새비밀번호 업데이트 완료");
         userRepository.save(user);
     }
-
-    // adminId로 사용자 정보 조회
-    public User getUserByAdminId(String adminId) {
-        return userRepository.findById(adminId).orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
 
 }
