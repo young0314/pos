@@ -72,7 +72,6 @@ public class ContainerStateController {
             System.out.println("새 컨테이너 생성: " + containNumber);
         }
 
-        System.out.println();
         // 저장 (신규 생성이든 기존 업데이트든)
         containerRepository.save(container);
         // DTO로 변환하여 반환
