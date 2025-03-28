@@ -1,10 +1,10 @@
 package com.example.pos_app.Controller;
 
-import com.example.pos_app.DTO.ContainImageDTO;
 import com.example.pos_app.DTO.ContainerDTO;
 import com.example.pos_app.Model.*;
 import com.example.pos_app.Repository.*;
 import com.example.pos_app.DTO.RegiContainerDTO;
+import com.example.pos_app.Service.ContainerService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,8 @@ public class ContainerController {
     private final ContainerRepository containerRepository;
     private final RegiContainerRepository regiContainerRepository;
     private final ContainImageRepository containImageRepository;
+    private final ContainerService containerService;  // 추가
+
     private final SessionManager sessionManager;
 
     public ContainerController(
@@ -34,6 +36,7 @@ public class ContainerController {
             ContainerRepository containerRepository,
             RegiContainerRepository regiContainerRepository,
             ContainImageRepository containImageRepository,
+            ContainerService containerService,
             SessionManager sessionManager
     ) {
         this.userRepository = userRepository;
@@ -41,6 +44,7 @@ public class ContainerController {
         this.containerRepository = containerRepository;
         this.regiContainerRepository = regiContainerRepository;
         this.containImageRepository = containImageRepository;
+        this.containerService = containerService;
         this.sessionManager = sessionManager;
     }
 
@@ -73,9 +77,17 @@ public class ContainerController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        // 기존 컨테이너 찾기
+        //  컨테이너 데이터 찾기
         Optional<Container> existingContainerOpt = containerRepository.findById(containerDto.getContainNumber());
         if (existingContainerOpt.isPresent()) {
+
+            List<RegiContainer> existingRegiContainers = regiContainerRepository.findByContainNumber(containerDto.getContainNumber());
+            if (!existingRegiContainers.isEmpty()) {
+                response.put("status", "false");
+                response.put("message", "해당 컨테이너 번호는 등록되어 있습니다.");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST); // 이미 등록된 경우
+            }
+
             // 컨테이너가 존재하면 데이터 업데이트
             Container container = existingContainerOpt.get();
 
@@ -110,20 +122,21 @@ public class ContainerController {
         // 컨테이너 조회
         Optional<Container> containerOpt = containerRepository.findByContainNumber(containNumber);
         if (containerOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "false");
+            response.put("message", "없는 컨테이너입니다.");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND); // 404 Not Found
         }
         Container container = containerOpt.get();
 
         ContainerDTO containerDTO = ContainerDTO.fromEntity(container);
 
         String imageUrl = null;
-        ContainImageDTO containImageDTO = new ContainImageDTO("", "");
 
         // 컨테이너 이미지 조회
         Optional<ContainImage> containImageOpt = containImageRepository.findByContainer_ContainNumber(containNumber);
         if (containImageOpt.isPresent()) {
             ContainImage containImage = containImageOpt.get();
-            containImageDTO = ContainImageDTO.fromEntity(containImage);
 
             if (containImage.getContainImage() != null) {
                 Path imageDirectory = Paths.get("C:/mean/img"); // 이미지 저장 경로
@@ -134,21 +147,24 @@ public class ContainerController {
 
                     if (imagePath.isPresent()) {
                         // 동적 URL 생성
-                        imageUrl = "http://192.168.137.158:8080/img/" + imagePath.get().getFileName().toString();
+                        imageUrl = "http://192.168.137.243:8080/img/" + imagePath.get().getFileName().toString();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+// 동적으로 생성된 이미지 URL을 세션에 저장
+        sessionManager.saveContainImageUrl(imageUrl, request);
+
+        // 세션에서 이미지 URL 가져오기
+        String sessionImageUrl = sessionManager.getContainImageUrl(request);
 
         // 세션에 컨테이너 정보 저장
         sessionManager.saveContainerInfo(containerDTO, request);
-        sessionManager.saveContainImageInfo(containImageDTO, request);
 
         // 세션에서 데이터 가져오기
         ContainerDTO sessionContainer = sessionManager.getContainerInfo(request);
-        ContainImageDTO sessionContainImage = sessionManager.getContainImageInfo(request);
 
         // 응답 데이터 생성
         Map<String, Object> response = new HashMap<>();
@@ -168,12 +184,8 @@ public class ContainerController {
             response.put("errorStatus", container.getErrorStatus());
         }
 
-        if (sessionContainImage != null) {
-            response.put("chillerImage", sessionContainImage.getContainImage());
-        } else {
-            response.put("chillerImage", imageUrl);
-        }
-
+        // 이미지 URL을 반환 (세션 값이 있으면 세션 값을, 없으면 새로 생성한 URL을)
+        response.put("chillerImage", sessionImageUrl != null ? sessionImageUrl : imageUrl);
 
         return ResponseEntity.ok(response);
     }
@@ -214,4 +226,50 @@ public class ContainerController {
         return ResponseEntity.ok(responseList);
     }
 
+    @DeleteMapping("delete/{containNumber}")
+    public ResponseEntity<Map<String, Object>> deleteContainer(@PathVariable("containNumber") String containNumber) {
+        Map<String, Object> response = new HashMap<>();
+
+        // 컨테이너 존재 여부 확인
+        if (!containerRepository.existsById(containNumber)) {
+            response.put("status", "false");
+            response.put("message", "해당 컨테이너 번호는 존재하지 않습니다.");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND); // 404 Not Found 응답
+        }
+
+        // 컨테이너 삭제 서비스 호출
+        try {
+            containerService.deleteByContainNumber(containNumber);
+            response.put("status", "success");
+            response.put("message", "컨테이너 삭제 성공");
+        } catch (Exception e) {
+            response.put("status", "false");
+            response.put("message", "컨테이너 삭제 실패");
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //컨테이너 상세 등록 정보 조회
+    @GetMapping("/info/{containNumber}")
+    public ResponseEntity<?> getContainerInfo(@PathVariable("containNumber") String containNumber) {
+        Map<String, Object> response = new HashMap<>();
+        // containNumber로 RegiContainer 조회
+        List<RegiContainer> regiContainers = regiContainerRepository.findByContainNumber(containNumber);
+        if (regiContainers.isEmpty()) {
+            response.put("status", "false");
+            response.put("message", "컨테이너를 찾을 수 없습니다.");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND); // 404 Not Found
+        }
+
+        // RegiContainer 데이터 가져오기 (리스트에서 첫 번째 항목 사용)
+        RegiContainer regiContainer = regiContainers.get(0);
+        // 필요한 데이터만 직접 맵에 푸시
+        response.put("containNumber", regiContainer.getContainNumber());
+        response.put("destination", regiContainer.getDestination());
+        response.put("cargo", regiContainer.getCargo());
+        response.put("containerOwner", regiContainer.getContainerOwner());
+
+        return new ResponseEntity<>(response, HttpStatus.OK); // 200 OK
+    }
 }
