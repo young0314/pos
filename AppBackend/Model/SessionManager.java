@@ -1,6 +1,5 @@
 package com.example.pos_app.Model;
 
-import com.example.pos_app.DTO.ContainImageDTO;
 import com.example.pos_app.DTO.ContainerDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -39,9 +38,9 @@ public class SessionManager {
     }
 
     // 컨테이너 이미지 정보 세션에 저장
-    public void saveContainImageInfo(ContainImageDTO containImageDTO, HttpServletRequest request) {
+    public void saveContainImageUrl(String imageUrl , HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        session.setAttribute("containImageInfo", containImageDTO);
+        session.setAttribute("containImageInfo", imageUrl);
     }
 
     // 세션에서 컨테이너 정보 조회
@@ -53,13 +52,10 @@ public class SessionManager {
         return null;
     }
 
-    // 세션에서 컨테이너 이미지 정보 조회
-    public ContainImageDTO getContainImageInfo(HttpServletRequest request) {
+    // 세션에서 컨테이너 이미지 URL 가져오기
+    public String getContainImageUrl(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            return (ContainImageDTO) session.getAttribute("containImageInfo");
-        }
-        return null;
+        return (session != null) ? (String) session.getAttribute("containImageUrl") : null;
     }
 
 }
