@@ -47,8 +47,6 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        /*configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/","http://192.168.137.116:8080/","http://localhost:8080/"
-        ,"http://localhost:7777/"));*/ // 허용할 출처 설정
         configuration.setAllowedOrigins(Arrays.asList("*")); // 허용할 출처 설정
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 허용할 HTTP 메서드 설정
         configuration.setAllowedHeaders(Arrays.asList("*")); // 허용할 헤더 설정
@@ -68,6 +66,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // 비밀번호 암호화에 BCrypt 사용
+        return new BCryptPasswordEncoder(); 
     }
 }
