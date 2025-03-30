@@ -56,3 +56,23 @@
 ![컨너이너 시연(위치 제거)](https://github.com/user-attachments/assets/980a70e1-fd38-4009-8780-bc8caab908fb)
 ### 냉각기 시각화
 ![유니티 시연](https://github.com/user-attachments/assets/00bf2f78-1543-4856-ba98-e4c93bb3975b)
+
+## 앱 시연
+### 회원가입 및 로그인
+![Image](https://github.com/user-attachments/assets/7b6dd248-e20f-45ec-92bd-799e2ed73605)
+
+### 관리자번호(아이디), 비밀번호 다시 찾기
+![Image](https://github.com/user-attachments/assets/13c8be6a-7d3f-4ea6-8a77-ba6a20999750)
+![Image](https://github.com/user-attachments/assets/0cd1bec9-612f-46a0-8905-063e1d625555)
+
+### 로그아웃, 로그인 상태
+![Image](https://github.com/user-attachments/assets/929e509b-46f0-4c7b-8d56-0b03ae63c125)
+
+### 컨테이너 등록 및 등록 완료한 컨테이너 리스트
+![Image](https://github.com/user-attachments/assets/3382f90a-7ce9-4f02-96f7-11d67bfa3db7)
+
+### 컨테이너 모니터링 페이지
+![Image](https://github.com/user-attachments/assets/68c5af6d-610d-4dd9-a721-854995ef08bc)
+
+- 피그마 주소 : 
+
