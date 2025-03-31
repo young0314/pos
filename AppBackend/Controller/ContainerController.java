@@ -9,13 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/container")
@@ -102,7 +99,6 @@ public class ContainerController {
 
             // 등록된 컨테이너 저장
             regiContainerRepository.save(regiContainer);
-            System.out.println("ContainNumber22: " + containerDto.getContainNumber()); // 디버깅용
 
             response.put("containNumber", regiContainer.getContainNumber());
 
@@ -132,29 +128,31 @@ public class ContainerController {
         ContainerDTO containerDTO = ContainerDTO.fromEntity(container);
 
         String imageUrl = null;
-
         // 컨테이너 이미지 조회
-        Optional<ContainImage> containImageOpt = containImageRepository.findByContainer_ContainNumber(containNumber);
-        if (containImageOpt.isPresent()) {
-            ContainImage containImage = containImageOpt.get();
+        try {
+            Optional<ContainImage> containImageOpt = containImageRepository.findByContainer_ContainNumber(containNumber);
 
-            if (containImage.getContainImage() != null) {
-                Path imageDirectory = Paths.get("C:/mean/img"); // 이미지 저장 경로
-                try (Stream<Path> files = Files.list(imageDirectory)) {
-                    Optional<Path> imagePath = files
-                            .filter(path -> path.getFileName().toString().startsWith(containNumber + "_"))
-                            .findFirst();
+            if (containImageOpt.isPresent()) {
+                ContainImage containImage = containImageOpt.get();
 
-                    if (imagePath.isPresent()) {
-                        // 동적 URL 생성
-                        imageUrl = "http://192.168.137.243:8080/img/" + imagePath.get().getFileName().toString();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (containImage.getContainImage() != null) {
+                    String filePath = containImage.getContainImage();
+                    String fileName = filePath.replace("C:/mean/img/", "");
+
+                    imageUrl = "http://192.168.137.243:8080/img/" + containImage.getContainImage();  
+                } else {
+                    // 이미지 경로가 없는 경우 예외
+                    throw new RuntimeException("해당 컨테이너의 이미지 경로가 없습니다.");
                 }
+            } else {
+                // 컨테이너가 존재하지 않는 경우 예외
+                throw new RuntimeException("해당 컨테이너의 이미지가 존재하지 않습니다.");
             }
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
-// 동적으로 생성된 이미지 URL을 세션에 저장
+
+        // 동적이미지 URL을 세션에 저장
         sessionManager.saveContainImageUrl(imageUrl, request);
 
         // 세션에서 이미지 URL 가져오기
