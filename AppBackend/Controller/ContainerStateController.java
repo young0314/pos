@@ -3,8 +3,6 @@ package com.example.pos_app.Controller;
 import com.example.pos_app.DTO.ContainerDTO;
 import com.example.pos_app.Model.ContainImage;
 import com.example.pos_app.Repository.ContainImageRepository;
-import com.example.pos_app.Repository.ContainerStateRepository;
-import com.example.pos_app.Service.ContainerStateService;
 import com.example.pos_app.Model.Container;
 import com.example.pos_app.Repository.ContainerRepository;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -72,6 +72,7 @@ public class ContainerStateController {
             System.out.println("새 컨테이너 생성: " + containNumber);
         }
 
+        System.out.println();
         // 저장 (신규 생성이든 기존 업데이트든)
         containerRepository.save(container);
         // DTO로 변환하여 반환
@@ -104,15 +105,26 @@ public class ContainerStateController {
         }
         Container container = containerOpt.get();
 
-        String fileName = containNumber + "_" + image.getOriginalFilename();
+        // 저장 경로 설정
+        File dir = new File(upload);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // 기존 파일 삭제 (containNumber_로 시작하는 파일 찾기)
+        File[] existingFiles = dir.listFiles((d, name) -> name.startsWith(containNumber + "_"));
+        if (existingFiles != null) {
+            for (File file : existingFiles) {
+                file.delete();
+            }
+        }
+
+        // 새로운 파일명 생성 (containNumber + 현재 시간)
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String fileName = containNumber + "_" + timestamp + ".jpg";
         String filePath = upload + fileName;
 
         try {
-            // 저장 폴더 없으면 생성
-            File dir = new File(upload);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
 
             // 이미지 파일 저장
             byte[] fileBytes = image.getBytes();
@@ -123,8 +135,9 @@ public class ContainerStateController {
             Optional<ContainImage> existImage = containImageRepository.findByContainer_ContainNumber(containNumber);
             if (existImage.isPresent()) {
                 ContainImage containImage = existImage.get();
-                containImage.setContainImage(filePath); // 기존 이미지 덮어쓰기
+                containImage.setContainImage(filePath);
                 containImageRepository.save(containImage);
+
                 response.put("message", "이미지 업데이트 성공");
             } else {
                 ContainImage newImage = ContainImage.builder()
@@ -132,6 +145,7 @@ public class ContainerStateController {
                         .container(container)
                         .build();
                 containImageRepository.save(newImage);
+
                 response.put("message", "이미지 업로드 성공");
             }
 
@@ -144,6 +158,5 @@ public class ContainerStateController {
             return ResponseEntity.status(500).body(response);
         }
     }
-
 
 }
