@@ -73,5 +73,5 @@
 #### 컨테이너 모니터링 페이지
 ![Image](https://github.com/user-attachments/assets/68c5af6d-610d-4dd9-a721-854995ef08bc)
 
-- 🔗 피그마 주소 :
+- 🔗 피그마 주소 : https://www.figma.com/design/znc8giAJjGw2ydu7HbImLq/Container?node-id=0-1&t=qnq5BBW4RYTWVHYT-1
 
