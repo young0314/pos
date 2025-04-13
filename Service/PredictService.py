@@ -99,7 +99,7 @@ def predict_error_type():
         minutes = int((pred % 3600) // 60)
         seconds = int((pred % 3600) % 60)
         print("Error Name:", lgbmPrediction[0], "Predicted RUL:", f"{hours}시간 {minutes}분 {seconds}초")
-        result = f"Life: {hours}H{minutes}M ,Type: {lgbmPrediction[0]}, State : {svmPrediction[0]}"
+        result = f"{hours}H{minutes}M ,Type: {lgbmPrediction[0]}, State : {svmPrediction[0]}"
     # 예측 결과를 JSON 형태로 반환
     return jsonify({"prediction": result})
 
