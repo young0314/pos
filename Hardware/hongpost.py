@@ -9,7 +9,7 @@ pin = 17
 door_pin = 4
 
 server_url = "http://192.168.137.106:8080/container/state"
-container_number = 123456
+deviceld = 123456
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(door_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -26,14 +26,14 @@ def read_server_response(file_path):
         print("error:", e)
         return None, None
 
-def send_sensor_data(temperature, humidity, doorStatus, lifespan, errorStatus, containNumber):
+def send_sensor_data(temperature, humidity, doorStatus, lifespan, errorStatus, Deviceld):
     data = {
         "temperature": temperature,
         "humidity": humidity,
         "doorStatus": doorStatus,
         "errorStatus": errorStatus,
         "lifespan": lifespan,
-        "containNumber": containNumber
+        "Deviceld": Deviceld
     }
     try:
         response = requests.post(server_url, json=data)
@@ -50,11 +50,11 @@ def update_sensor_data():
 
     if humidity is not None and temperature is not None:
         if lifespan and errorStatus:
-            print(f'Temperature={temperature:.1f}°C  Humidity={humidity:.1f}%  Door Status:{doorStatus} Lifespan:{lifespan}, errorStatus:{errorStatus} container:{container_number}')
+            print(f'Temperature={temperature:.1f}°C  Humidity={humidity:.1f}%  Door Status:{doorStatus} Lifespan:{lifespan}, errorStatus:{errorStatus} container:{deviceld}')
         else:
-            print(f'Temperature={temperature:.1f}°C  Humidity={humidity:.1f}%  Door Status:{doorStatus} container:{container_number}')
+            print(f'Temperature={temperature:.1f}°C  Humidity={humidity:.1f}%  Door Status:{doorStatus} container:{deviceld}')
 
-        send_sensor_data(temperature, humidity, doorStatus, lifespan, errorStatus, container_number)
+        send_sensor_data(temperature, humidity, doorStatus, lifespan, errorStatus, deviceld)
 
 while True:
     update_sensor_data()
