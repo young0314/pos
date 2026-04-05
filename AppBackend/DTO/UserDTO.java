@@ -16,29 +16,19 @@ public class UserDTO {
     private String adminName;
     private String idNumber;
     private String phone;
+    private String email;
     private String password;
+    private String emailVerified;
     // 회원가입 시 User 객체로 변환하는 메서드
     public User toUser() {
 
         return User.builder()
-                .adminId(generateUniqueAdminId())  // 자동 생성된 adminId
+                .email(this.email)
+                .emailVerified(true)
                 .adminName(this.adminName)
                 .idNumber(this.idNumber)
                 .phone(this.phone)
                 .build();
     }
 
-    // adminId 자동 생성 메서드
-    private String generateUniqueAdminId() {
-        int length = 5;
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random = new Random();
-        StringBuilder adminIdBuilder = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            adminIdBuilder.append(characters.charAt(random.nextInt(characters.length())));
-        }
-
-        return adminIdBuilder.toString();
-    }
 }
