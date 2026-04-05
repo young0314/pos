@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 @Getter
 @NoArgsConstructor
@@ -13,20 +12,23 @@ import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 @Builder
 @Entity
 public class RegiContainer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 새로운 id를 기본키로 사용
-    private Long regiConid; // 인조키 추가
 
-    private String containNumber; // 외래키로 사용할 containNumber 추가
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long regiConid;
+
+    @Column(unique = true, nullable = false)
+    private String containNumber; //컨테이너 번호
+
+    @Column(nullable = false, unique = true)
+    private String deviceId; //라즈베리파이
+
     private String destination;
     private String cargo;
     private String containerOwner;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "containNumber", referencedColumnName = "containNumber", insertable = false, updatable = false) // 외래키 설정
-    private Container container;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "adminId")
+    @JoinColumn(name = "adPk")
     private User user;
+
 }
