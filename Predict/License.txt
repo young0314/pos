@@ -1,0 +1,64 @@
+# LICENSE FILE
+
+This project uses the following open-source libraries:
+
+1. **pandas** - BSD 3-Clause License
+   https://pandas.pydata.org/about/license/
+
+   BSD 3-Clause License:
+   - Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+     1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+     2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+     3. Neither the name of the <organization> nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+2. **numpy** - BSD 3-Clause License
+   https://numpy.org/doc/stable/license.html
+
+   (Same BSD 3-Clause License as above)
+
+3. **scikit-learn** - BSD 3-Clause License
+   https://scikit-learn.org/stable/about.html#license
+
+   (Same BSD 3-Clause License as above)
+
+4. **Flask** - BSD 3-Clause License
+   https://flask.palletsprojects.com/en/2.0.x/license/
+
+   (Same BSD 3-Clause License as above)
+
+5. **Matplotlib** - PSF License & BSD-Style License
+   https://matplotlib.org/stable/users/license.html
+
+   PSF License:
+   - This software is licensed under the Python Software Foundation License Version 2.
+
+   BSD License:
+   (Same BSD 3-Clause License as above)
+
+6. **Seaborn** - BSD 3-Clause License
+   https://seaborn.pydata.org/
+
+   (Same BSD 3-Clause License as above)
+
+7. **LightGBM** - MIT License
+   https://github.com/microsoft/LightGBM/blob/master/LICENSE
+
+   MIT License:
+   - Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+   - The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+   - THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+8. **joblib** - BSD License
+   https://joblib.readthedocs.io/en/latest/license.html
+
+   (Same BSD 3-Clause License as above)
+
+9. **Python** - Python Software Foundation License
+   https://docs.python.org/3/license.html
+
+   PSF License Version 2:
+   - This license applies to Python and derivative works, it is available at the following URL: https://docs.python.org/3/license.html
