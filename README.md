@@ -20,7 +20,7 @@
 - UNITY2022.3.21f1
 - SpringBoot3.3.4
 - Flask
-- React
+- ReactNative
 - GUI : PyQt, PySide
 - Database : MySQL 8.0.30
 - 학습 데이터 : ASHARE-D-16919
@@ -48,7 +48,7 @@
 - 유니티와 연동하여 냉각기의 고장 부위를 시각적으로 보여줌
 
 ## ✔️ ERD
-![Image](https://github.com/user-attachments/assets/d895c641-26f2-4880-87b0-ae545fb22415)
+<img width="871" height="720" alt="Image" src="https://github.com/user-attachments/assets/52d2bf22-867d-4068-a2e6-d9d892b855ee" />
 
 ## ✔️ 시스템 흐름도
 ![Image](https://github.com/user-attachments/assets/8a51bec0-788e-4243-bfb3-d18277442df9)
@@ -60,18 +60,19 @@
 ![유니티 시연](https://github.com/user-attachments/assets/00bf2f78-1543-4856-ba98-e4c93bb3975b)
 
 ## 📱 앱
-#### 회원가입 및 로그인
-![Image](https://github.com/user-attachments/assets/7b6dd248-e20f-45ec-92bd-799e2ed73605)
+#### 회원가입 및 이메일 인증
+![Image](https://github.com/user-attachments/assets/c197b9e1-f1a5-481a-9df8-58fcf3e4b3b8)
+![Image](https://github.com/user-attachments/assets/d6e6eb13-2c12-4487-beaf-989c495f35ab)
 
-#### 관리자번호(아이디), 비밀번호 다시 찾기
-![Image](https://github.com/user-attachments/assets/13c8be6a-7d3f-4ea6-8a77-ba6a20999750)
+#### 아이디, 비밀번호 다시 찾기
+![Image](https://github.com/user-attachments/assets/72d02453-8cb3-46f3-a659-1f99b0287bee)
 ![Image](https://github.com/user-attachments/assets/0cd1bec9-612f-46a0-8905-063e1d625555)
 
 #### 로그아웃, 로그인 상태
 ![Image](https://github.com/user-attachments/assets/929e509b-46f0-4c7b-8d56-0b03ae63c125)
 
 #### 컨테이너 등록 및 등록 완료한 컨테이너 리스트
-![Image](https://github.com/user-attachments/assets/3382f90a-7ce9-4f02-96f7-11d67bfa3db7)
+![Image](https://github.com/user-attachments/assets/7d1ccace-17a8-4830-a147-23561d5d39ed)
 
 #### 컨테이너 모니터링 페이지
 ![Image](https://github.com/user-attachments/assets/68c5af6d-610d-4dd9-a721-854995ef08bc)
