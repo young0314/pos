@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ContainerDTO {
+public class ContainerResponseDTO {
     private String containNumber;
     private double temperature;
     private int humidity;
@@ -19,8 +19,8 @@ public class ContainerDTO {
     private int errorStatus;
 
     // 엔티티 -> DTO 변환
-    public static ContainerDTO fromEntity(Container container) {
-        return ContainerDTO.builder()
+    public static ContainerResponseDTO fromEntity(Container container) {
+        return ContainerResponseDTO.builder()
                 .containNumber(container.getContainNumber())
                 .temperature(container.getTemperature())
                 .humidity(container.getHumidity())
