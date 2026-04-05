@@ -1,10 +1,14 @@
 package com.example.pos_app.Controller;
 
 import com.example.pos_app.DTO.ContainerDTO;
+import com.example.pos_app.DTO.ContainerStateDTO;
 import com.example.pos_app.Model.ContainImage;
-import com.example.pos_app.Repository.ContainImageRepository;
 import com.example.pos_app.Model.Container;
+import com.example.pos_app.Model.RegiContainer;
+import com.example.pos_app.Repository.ContainImageRepository;
 import com.example.pos_app.Repository.ContainerRepository;
+import com.example.pos_app.Repository.RegiContainerRepository;
+import com.example.pos_app.Service.AlertService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,63 +31,72 @@ public class ContainerStateController {
 
     private final ContainerRepository containerRepository;
     private final ContainImageRepository containImageRepository;
+    private final RegiContainerRepository regiContainerRepository;
+    private final AlertService alertService;
 
     public ContainerStateController(
             ContainerRepository containerRepository,
-            ContainImageRepository containImageRepository
+            ContainImageRepository containImageRepository,
+            RegiContainerRepository regiContainerRepository,
+            AlertService alertService
     ) {
         this.containerRepository = containerRepository;
         this.containImageRepository = containImageRepository;
+        this.regiContainerRepository = regiContainerRepository;
+        this.alertService = alertService;
     }
 
-    //하드로부터 컨테이너 센서값 받기
     @PostMapping("/state")
-    public ResponseEntity<ContainerDTO> saveStatus(@RequestBody ContainerDTO containerStateDto) {
-        String containNumber = containerStateDto.getContainNumber();
+    public ResponseEntity<?> saveState(@RequestBody ContainerStateDTO dto) {
 
-        // 컨테이너 번호가 존재하는지 확인
-        Optional<Container> existingContainer = containerRepository.findById(containNumber);
+        String deviceId = dto.getDeviceId();
+
+        Optional<RegiContainer> regiContainerOpt = regiContainerRepository.findByDeviceId(deviceId);
+        if (regiContainerOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of(
+                            "message", "등록되지 않은 장치입니다."
+                    ));
+        }
+
+        RegiContainer regiContainer = regiContainerOpt.get();
+        String containerNumber = regiContainer.getContainNumber();
+
+        Optional<Container> existingContainer = containerRepository.findById(containerNumber);
+
+        int oldErrorStatus = existingContainer.map(Container::getErrorStatus).orElse(0);
+        int oldDoorStatus = existingContainer.map(Container::getDoorStatus).orElse(0);
 
         Container container;
 
         if (existingContainer.isPresent()) {
-            // 기존 컨테이너 업데이트 (DTO에서 받은 값을 사용하여 컨테이너 객체를 새로 빌드)
-            container = existingContainer.get();
-            container = container.toBuilder()
-                    .temperature(containerStateDto.getTemperature())
-                    .humidity(containerStateDto.getHumidity())
-                    .lifespan(containerStateDto.getLifespan())
-                    .doorStatus(containerStateDto.getDoorStatus())
-                    .errorStatus(containerStateDto.getErrorStatus())
+            container = existingContainer.get().toBuilder()
+                    .temperature(dto.getTemperature())
+                    .humidity(dto.getHumidity())
+                    .lifespan(dto.getLifespan())
+                    .doorStatus(dto.getDoorStatus())
+                    .errorStatus(dto.getErrorStatus())
                     .build();
-
-            System.out.println("기존 컨테이너 업데이트: " + containNumber);
         } else {
-            // 새 컨테이너 생성 (DTO에서 받은 값으로 초기화)
             container = Container.builder()
-                    .containNumber(containNumber)
-                    .temperature(containerStateDto.getTemperature())
-                    .humidity(containerStateDto.getHumidity())
-                    .lifespan(containerStateDto.getLifespan())
-                    .doorStatus(containerStateDto.getDoorStatus())
-                    .errorStatus(containerStateDto.getErrorStatus())
+                    .containNumber(containerNumber)
+                    .temperature(dto.getTemperature())
+                    .humidity(dto.getHumidity())
+                    .lifespan(dto.getLifespan())
+                    .doorStatus(dto.getDoorStatus())
+                    .errorStatus(dto.getErrorStatus())
                     .build();
-
-            System.out.println("새 컨테이너 생성: " + containNumber);
         }
 
-        System.out.println();
-        // 저장 (신규 생성이든 기존 업데이트든)
-        containerRepository.save(container);
-        // DTO로 변환하여 반환
-        ContainerDTO updatedContainerDto = ContainerDTO.fromEntity(container);
+        Container savedContainer = containerRepository.save(container);
 
-        // 응답으로 DTO 반환
-        return new ResponseEntity<>(updatedContainerDto, HttpStatus.OK);
+        alertService.checkAndSendAlert(regiContainer, oldErrorStatus, oldDoorStatus, savedContainer);
+
+        return ResponseEntity.ok(ContainerDTO.fromEntity(savedContainer));
     }
 
-    // 유니티로부터 컨테이너 이미지 받기
-    private static final String upload = "C:/mean/img/"; // 저장할 폴더 경로
+    private static final String upload = "C:/mean/img/";
+
     @PostMapping("/image")
     public ResponseEntity<Map<String, Object>> uploadImage(
             @RequestParam("containNumber") String containNumber,
@@ -93,25 +106,25 @@ public class ContainerStateController {
         System.out.println("이미지 업로드 요청: " + containNumber);
 
         if (image.isEmpty()) {
+            response.put("success", false);
             response.put("message", "이미지가 제공되지 않았습니다.");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // 컨테이너 존재 여부 확인
         Optional<Container> containerOpt = containerRepository.findById(containNumber);
         if (containerOpt.isEmpty()) {
+            response.put("success", false);
             response.put("message", "해당 컨테이너 번호가 존재하지 않습니다.");
             return ResponseEntity.badRequest().body(response);
         }
+
         Container container = containerOpt.get();
 
-        // 저장 경로 설정
         File dir = new File(upload);
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        // 기존 파일 삭제 (containNumber_로 시작하는 파일 찾기)
         File[] existingFiles = dir.listFiles((d, name) -> name.startsWith(containNumber + "_"));
         if (existingFiles != null) {
             for (File file : existingFiles) {
@@ -119,25 +132,23 @@ public class ContainerStateController {
             }
         }
 
-        // 새로운 파일명 생성 (containNumber + 현재 시간)
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileName = containNumber + "_" + timestamp + ".jpg";
         String filePath = upload + fileName;
 
         try {
-
-            // 이미지 파일 저장
             byte[] fileBytes = image.getBytes();
             Path path = Path.of(filePath);
             Files.write(path, fileBytes, StandardOpenOption.CREATE);
 
-            // 기존 이미지 확인 후 덮어쓰기 or 새로 저장
             Optional<ContainImage> existImage = containImageRepository.findByContainer_ContainNumber(containNumber);
+
             if (existImage.isPresent()) {
                 ContainImage containImage = existImage.get();
                 containImage.setContainImage(filePath);
                 containImageRepository.save(containImage);
 
+                response.put("success", true);
                 response.put("message", "이미지 업데이트 성공");
             } else {
                 ContainImage newImage = ContainImage.builder()
@@ -146,6 +157,7 @@ public class ContainerStateController {
                         .build();
                 containImageRepository.save(newImage);
 
+                response.put("success", true);
                 response.put("message", "이미지 업로드 성공");
             }
 
@@ -154,9 +166,9 @@ public class ContainerStateController {
 
         } catch (IOException e) {
             System.out.println("이미지 저장 실패");
+            response.put("success", false);
             response.put("message", "이미지 저장 실패: " + e.getMessage());
             return ResponseEntity.status(500).body(response);
         }
     }
-
 }
