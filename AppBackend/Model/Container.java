@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder(toBuilder = true)
 @Entity
 public class Container {
+
     @Id
     private String containNumber;
 
@@ -22,4 +23,8 @@ public class Container {
     private String lifespan;
     private int doorStatus;
     private int errorStatus;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "containNumber", referencedColumnName = "containNumber")
+    private RegiContainer regiContainer;
 }
