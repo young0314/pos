@@ -20,7 +20,7 @@
 - UNITY2022.3.21f1
 - SpringBoot3.3.4
 - Flask
-- ReactNative
+- ReactNative: 0.80.3
 - GUI : PyQt, PySide
 - Database : MySQL 8.0.30
 - 학습 데이터 : ASHARE-D-16919
