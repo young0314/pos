@@ -46,6 +46,7 @@
 #### 실시간 모니터링 앱
 - 컨테이너 관리자용으로 컨테이너의 컨디션을 확인할 수 있는 앱
 - 유니티와 연동하여 냉각기의 고장 부위를 시각적으로 보여줌
+- 웹소켓을 이용한 고장 알림 기능
 
 ## ✔️ ERD
 <img width="871" height="720" alt="Image" src="https://github.com/user-attachments/assets/52d2bf22-867d-4068-a2e6-d9d892b855ee" />
@@ -73,6 +74,9 @@
 
 #### 컨테이너 등록 및 등록 완료한 컨테이너 리스트
 ![Image](https://github.com/user-attachments/assets/7d1ccace-17a8-4830-a147-23561d5d39ed)
+
+#### 컨테이너 고장 알림 시스템
+![Image](https://github.com/user-attachments/assets/e55a97dd-b5e2-43d0-ae5d-26e7a981a97b)
 
 #### 컨테이너 모니터링 페이지
 ![Image](https://github.com/user-attachments/assets/68c5af6d-610d-4dd9-a721-854995ef08bc)
